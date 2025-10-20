@@ -93,7 +93,6 @@
         # Screenshots
         "Print".action = screenshot;
         "Shift+Print".action = screenshot-screen;
-        "Ctrl+Print".action = screenshot-window;
 
         # System
         "Mod+Shift+E".action = quit;
