@@ -1,0 +1,23 @@
+* {
+  font-family: Inter;
+  font-size: 13px;
+}
+
+window#waybar {
+  background-color: rgba(26, 27, 38, 0.95);
+  color: #c0caf5;
+}
+
+#workspaces button {
+  padding: 0 10px;
+  color: #c0caf5;
+}
+
+#workspaces button.focused {
+  background-color: #7aa2f7;
+  color: #1a1b26;
+}
+
+#clock, #battery, #network, #pulseaudio {
+  padding: 0 10px;
+}
