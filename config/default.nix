@@ -11,7 +11,8 @@
     settings = {
       input = {
         keyboard.xkb = {
-          layout = "us";
+          layout = "us,ru";
+          options = "grp:alt_shift_toggle";
         };
         touchpad = {
           tap = true;
@@ -19,18 +20,19 @@
         };
         mouse = {
           accel-profile = "flat";
+          accel-speed = 0.4;
         };
       };
 
       layout = {
-        gaps = 8;
+        gaps = 1;
         border = {
-          width = 2;
+          width = 0;
           active.color = "#7aa2f7";
           inactive.color = "#414868";
         };
         focus-ring = {
-          width = 2;
+          width = 0;
           active.color = "#7aa2f7";
           inactive.color = "#414868";
         };
@@ -41,60 +43,58 @@
       screenshot-path = "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
 
       binds = with config.lib.niri.actions; {
-        # Applications
+        # Existing bindings
         "Mod+Return".action = spawn "ghostty";
         "Mod+D".action = spawn "fuzzel";
         "Mod+Q".action = close-window;
         "Mod+E".action = spawn "dolphin";
         "Mod+B".action = spawn "firefox";
-
-        # Window focus (vim keys)
         "Mod+H".action = focus-column-left;
         "Mod+L".action = focus-column-right;
-        "Mod+K".action = focus-window-up;
-        "Mod+J".action = focus-window-down;
-
-        # Window movement
+        "Mod+K".action = focus-workspace-up;
+        "Mod+J".action = focus-workspace-down;
         "Mod+Shift+H".action = move-column-left;
         "Mod+Shift+L".action = move-column-right;
-        "Mod+Shift+K".action = move-window-up;
-        "Mod+Shift+J".action = move-window-down;
-
-        # Window sizing
+        "Mod+Shift+K".action = move-workspace-up;
+        "Mod+Shift+J".action = move-workspace-down;
         "Mod+Ctrl+H".action = set-column-width "-10%";
         "Mod+Ctrl+L".action = set-column-width "+10%";
         "Mod+Ctrl+K".action = set-window-height "-10%";
         "Mod+Ctrl+J".action = set-window-height "+10%";
-
-        # Fullscreen and maximize
         "Mod+F".action = fullscreen-window;
         "Mod+M".action = maximize-column;
-
-        # Workspaces
         "Mod+1".action = focus-workspace 1;
         "Mod+2".action = focus-workspace 2;
         "Mod+3".action = focus-workspace 3;
         "Mod+4".action = focus-workspace 4;
         "Mod+5".action = focus-workspace 5;
-
-        # Monitors
-        "Mod+Left".action = focus-monitor-left;
-        "Mod+Right".action = focus-monitor-right;
-        "Mod+Shift+Left".action = move-column-to-monitor-left;
-        "Mod+Shift+Right".action = move-column-to-monitor-right;
-
-        # Screenshots
-        "Print".action = screenshot;
-        "Shift+Print".action = screenshot-screen;
-
-        # System
+        "Mod+Left".action = focus-column-left;
+        "Mod+Right".action = focus-column-right;
+        "Mod+Up".action = focus-workspace-up;
+        "Mod+Down".action = focus-workspace-down;
+        "Mod+Shift+Left".action = move-column-left;
+        "Mod+Shift+Right".action = move-column-right;
+        "Mod+Shift+Up".action = move-workspace-up;
+        "Mod+Shift+Down".action = move-workspace-down;
         "Mod+Shift+E".action = quit;
         "Mod+Shift+R".action = spawn ["sh" "-c" "niri msg action quit; niri"];
+
+        # New bindings from image
+        "Alt+Shift+E".action = spawn ["sh" "-c" "niri msg action quit; niri"];
+        "Alt+Q".action = close-window;
+        "Alt+H".action = focus-column-left;
+        "Alt+Shift+H".action = move-column-left;
+        "Alt+Shift+L".action = move-column-right;
+        "Alt+M".action = maximize-column;
+        "Alt+B".action = spawn "firefox";
+        "Alt+D".action = spawn "fuzzel";
+        "Alt+Return".action = spawn "ghostty";
+        "Alt+Shift+R".action = spawn ["sh" "-c" "niri msg action quit; niri"];
       };
 
       cursor = {
         theme = "Bibata-Modern-Ice";
-        size = 24;
+        size = 22;
       };
 
       window-rules = [
@@ -125,7 +125,6 @@
         match = "7aa2f7ff";
         selection = "414868ff";
         selection-text = "c0caf5ff";
-        border = "7aa2f7ff";
       };
     };
   };
@@ -209,7 +208,16 @@
     grim
     slurp
     swappy
+    waybar
   ];
+
+  # Autostart Waybar via activation script
+  home.activation = {
+    startWaybar = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      pkill -f waybar || true
+      ${pkgs.waybar}/bin/waybar &
+    '';
+  };
 
   # Session variables
   home.sessionVariables = {
