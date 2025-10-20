@@ -1,0 +1,40 @@
+# Nix build results
+result
+result-*
+
+# Nix flake lock file (optional - some prefer to commit this)
+# flake.lock
+
+# Direnv
+.direnv/
+.envrc
+
+# Editor files
+*.swp
+*.swo
+*~
+.*.swp
+.*.swo
+
+# VSCode
+.vscode/
+
+# Emacs
+\#*\#
+.\#*
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Temporary files
+*.tmp
+*.temp
