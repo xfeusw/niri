@@ -2,7 +2,8 @@
   imports = [
     ./niri.nix
     ./fuzzel.nix
-    ./waybar.nix
+    ./waybar
     ./wayland.nix
+    # ./wofi.nix
   ];
 }

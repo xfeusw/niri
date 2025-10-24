@@ -89,7 +89,7 @@
         "Mod+Shift+R".action.spawn = ["sh" "-c" "niri msg action quit; niri"];
 
         # Alt bindings (alternative shortcuts)
-        "Alt+Shift+E".action.spawn = ["sh" "-c" "niri msg action quit; niri"];
+        "Super+Shift+E".action.spawn = ["sh" "-c" "niri msg action quit; niri"];
         "Alt+Q".action.close-window = {};
         "Alt+H".action.focus-column-left = {};
         "Alt+Shift+H".action.move-column-left = {};
@@ -102,6 +102,9 @@
 
         # Screenshot to clipboard
         "Print".action.spawn = ["sh" "-c" "grim - | wl-copy"];
+
+        # Screen recording with audio
+        "Mod+Print".action.spawn = ["sh" "-c" "if pgrep wf-recorder; then pkill wf-recorder; else wf-recorder -a -f ~/Videos/Recordings/Recording-$(date +%Y-%m-%d-%H-%M-%S).mp4; fi"];
       };
 
       cursor = {

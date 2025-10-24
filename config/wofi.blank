@@ -1,0 +1,82 @@
+{ config, lib, pkgs, ... }:
+
+{
+  # Wofi configuration
+  programs.wofi = {
+    enable = true;
+    settings = {
+      mode = "drun";
+      prompt = "Search applications...";
+      width = 600;
+      height = 400;
+      term = "ghostty";
+      insensitive = true;
+      show = "drun";
+      allow_images = true;
+      allow_markup = true;
+    };
+    style = ''
+      * {
+        font-family: Inter, sans-serif;
+        font-size: 13px;
+      }
+
+      window {
+        background-color: rgba(26, 27, 38, 0.95);
+        color: #c0caf5;
+        border: 1px solid #7aa2f7;
+        border-radius: 8px;
+      }
+
+      #input {
+        background-color: #1a1b26;
+        color: #c0caf5;
+        border: none;
+        padding: 8px;
+        margin: 10px;
+        border-radius: 4px;
+      }
+
+      #entry {
+        padding: 8px;
+        color: #c0caf5;
+      }
+
+      #entry:selected {
+        background-color: #7aa2f7;
+        color: #1a1b26;
+        border-radius: 4px;
+      }
+    '';
+  };
+
+  # Dunst for notifications
+  services.dunst = {
+    enable = true;
+    settings = {
+      global = {
+        font = "Inter 10";
+        format = "<b>%s</b>\n%b";
+        frame_color = "#7aa2f7";
+        background = "#1a1b26";
+        foreground = "#c0caf5";
+        corner_radius = 8;
+        width = 300;
+        height = 200;
+        offset = "10x10";
+        origin = "top-right";
+        transparency = 5;
+      };
+      urgency_normal = {
+        timeout = 5;
+      };
+      urgency_critical = {
+        background = "#f7768e";
+        timeout = 0;
+      };
+    };
+  };
+
+  # Ensure required packages are installed
+  environment.systemPackages = with pkgs; [ wofi dunst inter ];
+}
