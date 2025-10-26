@@ -4,6 +4,6 @@
     ./fuzzel.nix
     ./waybar
     ./wayland.nix
-    # ./wofi.nix
+    ./mako.nix
   ];
 }
