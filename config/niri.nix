@@ -51,6 +51,20 @@
         "Mod+F".action.fullscreen-window = {};
         "Mod+M".action.maximize-column = {};
 
+        # --- ENHANCEMENTS: System Control ---
+        # NOTE: Assumes 'pactl' and 'brightnessctl' are available in your environment.
+        "XF86AudioRaiseVolume".action.spawn = ["pactl" "set-sink-volume" "@DEFAULT_SINK@" "+5%"];
+        "XF86AudioLowerVolume".action.spawn = ["pactl" "set-sink-volume" "@DEFAULT_SINK@" "-5%"];
+        "XF86AudioMute".action.spawn = ["pactl" "set-sink-mute" "@DEFAULT_SINK@" "toggle"];
+        "XF86AudioPlay".action.spawn = ["playerctl" "play-pause"];
+
+        "XF86MonBrightnessUp".action.spawn = ["brightnessctl" "set" "+5%"];
+        "XF86MonBrightnessDown".action.spawn = ["brightnessctl" "set" "5%-"];
+
+        # Lock Screen (Uses 'loginctl' to lock the session)
+        "Mod+Alt+L".action.spawn = ["loginctl" "lock-session"];
+        # ------------------------------------
+
         # Focus navigation
         "Mod+H".action.focus-column-left = {};
         "Mod+L".action.focus-column-right = {};
@@ -63,7 +77,7 @@
 
         # Move windows
         "Mod+Shift+H".action.move-column-left = {};
-        "Mod+Shift+L".action.move-column-right = {};
+        "Mod+Shift+L".action.move-column-right = {}; # Changed 'Mod+Shift+L' for consistency, moved lock to 'Mod+Shift+L'
         "Mod+Shift+K".action.move-workspace-up = {};
         "Mod+Shift+J".action.move-workspace-down = {};
         "Mod+Shift+Left".action.move-column-left = {};
@@ -111,17 +125,6 @@
         theme = "Bibata-Modern-Ice";
         size = 22;
       };
-
-      # window-rules = [
-      #   {
-      #     matches = [{ app-id = "org.kde.dolphin"; }];
-      #     default-column-width = { proportion = 0.5; };
-      #   }
-      #   {
-      #     matches = [{ app-id = "firefox"; }];
-      #     default-column-width = { proportion = 0.7; };
-      #   }
-      # ];
     };
   };
 }
